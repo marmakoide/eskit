@@ -11,8 +11,8 @@ A benchmark program is included in ESKit, allowing to test if the algorithms
 works as they should. For instance, you might discover some bug, or that the
 implementation does not not behave as it should on some particular cases.
 
-The benchmark program, *eskit-test*, is installed in the *test* directory of
-the *eskit-1.0.0* source directory.
+The benchmark program, *eskit-test*, is installed in the *build* directory of
+the *eskit-1.2.3* source directory.
 
 
 
@@ -26,10 +26,10 @@ You can pick a fitness function as a benchmark. Use the *-fNAME* or
 *--function=NAME* switch. The following functions are supported:
 
 + **sphere**
-+	**ellipsoid**
-+	**cigar**
-+	**rosenbrock**
-+	**rastrigin**
++ **ellipsoid**
++ **cigar**
++ **rosenbrock**
++ **rastrigin**
 + **ackley**
 
 By default, **sphere** is used. 
