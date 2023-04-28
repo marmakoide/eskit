@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010 Alexandre Devert <marmakoide@yahoo.fr>
+ * Copyright (c) 2009-2023 Alexandre Devert <marmakoide@hotmail.fr>
  *
  * ESKit is free software; you can redistribute it and/or modify it under the 
  * terms of the MIT license. See LICENSE for details.
@@ -12,7 +12,7 @@
 
 
 
-/* sqrt(a^2 + b^2) numerically stable. */
+/* sqrt(a^2 + b^2) implemented in a numerically stable fashion. */
 
 static double
 stable_hypot(double a, double b) {
