@@ -1,0 +1,70 @@
+Version 1.2.2
+-------------
+
+Released 2010-08-25
+
++ Bug fix 
+	+ The random number generator did not work properly on 64 bits architectures
+	+ Suppressed various warnings
+
+
+
+Version 1.2.1
+-------------
+
+Released 2010-07-20
+
++ Bugs fix, compilation issues on 64 bits architectures
+
+
+
+Version 1.2.0
+-------------
+
+Unreleased
+
++ Improvements
+	+ Optimizer stops when the best fitness does not improves for a large number
+	  of iterations.
+	+ Safer code for ekStopCriterionString
+
+
+
+Version 1.1.1
+-------------
+
+Released 2010-04-13
+
++ Bugs fix
+	+ ekCSA_setOptimizer function wasn't defined (typo)
+	+ Suppressed all the GCC "unused parameter" warning messages
+  + Test tool exits if a command line switch misses a parameter
++ Sphinx (Documentation generator) upgraded to 0.6.5
+
+
+
+Version 1.1.0
+--------------
+
+Released 2010-04-08
+
++ API additions and improvements
+	+ Optimizers does not handle anymore the life cycle of the point distribution
+	  object.
+	+ Custom covariance matrix can be used with **CMA** and **SepCMA**
++ Bugs fix
+	+ Bogus matrix/matrix multiplication in some cases (lambda > N). The 
+	  consequence was that pure memory garbage was used as genuine values.
++ Updated tutorials
++ A new example in the tutorial, about the custom covariance matrix
++ Added the Ackley function to the benchmark program
++ Distribute changelog (this file)
+
+
+
+Version 1.0.0
+-------------
+
+Released 2010-04-07
+
++ Initial Release

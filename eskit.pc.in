@@ -1,0 +1,11 @@
+prefix=@PREFIX@
+exec_prefix=${prefix}
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+Name: @NAME@
+Description: Evolution Strategies library
+Version: @VERSION@
+Libs: -L${libdir} @LIBS@
+Cflags: -I${includedir} @CFLAGS@
+
