@@ -1,82 +1,69 @@
 #! /usr/bin/env python
 
-import Options
-import os.path
-
-
-
-# the following two variables are used by the target "waf dist"
 VERSION = '1.2.2'
 APPNAME = 'eskit'
 
-# these variables are mandatory ('/' are converted automatically)
 top = '.'
 out = 'build'
 
 
+def options(context):
+    context.load('compiler_c')
 
-def set_options(context):
-	context.tool_options('compiler_cc')
-
-	context.add_option('--use_LAPACK', action='store_true', default=False, help='uses LAPACK')
-
+    context.add_option('--use_LAPACK', action='store_true', default=False, help='uses LAPACK')
 
 
 def configure(context):
-	context.check_tool('compiler_cc')
-	context.check_tool('misc')
+    context.load('compiler_c')
 
-	context.env['VERSION'] = VERSION
-	context.env.CCFLAGS = ['-std=c99', '-Wall', '-Wextra', '-O2', '-g']
-	
-	# Handle LAPACK usage
-	context.env.use_LAPACK = Options.options.use_LAPACK
-	if context.env.use_LAPACK:
-		context.env.CCFLAGS.append('-DUSE_LAPACK')
+    context.env['VERSION'] = VERSION
+    context.env.CCFLAGS = ['-std=c99', '-Wall', '-Wextra', '-O2', '-g']
+
+    # Handle LAPACK usage
+    context.env.use_LAPACK = context.options.use_LAPACK
+    if context.env.use_LAPACK:
+        context.env.CCFLAGS.append('-DUSE_LAPACK')
 
 
 def build(context):
-	# 1. The eskit library
-	context(
-		target = 'eskit',
-		features = 'cc cshlib',
-		source = context.path.ant_glob('libeskit/src/*.c'),
-		includes = 'libeskit/include')
+    # 1. The eskit library
+    context.shlib(
+        target = 'eskit',
+        source = context.path.ant_glob('libeskit/src/*.c'),
+        includes = 'libeskit/include'
+    )
 
-	context.install_files('${PREFIX}/include', 'libeskit/include/eskit.h')
-	context.install_files('${PREFIX}/include/eskit', 'libeskit/include/eskit/*.h')
+    libeskit_include_dir = context.path.find_dir('libeskit/include')
+    context.install_files('${PREFIX}/include', libeskit_include_dir.ant_glob('**/*.h'), relative_trick = True)
 
-	# 2. The test & benchmarking program
-	libList = ['m']
-	if context.env.use_LAPACK:
-		libList.append('lapack')
+    # 2. The test & benchmarking program
+    lib_list = ['m']
+    if context.env.use_LAPACK:
+        lib_list.append('lapack')
 
-	context(
-		target = 'eskit-test',
-		features = 'cc cprogram',
-		install_path = '../test', 
-		source = context.path.ant_glob('test/src/*.c'),
-		includes = 'test/include libeskit/include',
-		lib = libList,
-		libpath  = ['/usr/lib'],
-		uselib_local = 'eskit')
+    context.program(
+        target = 'eskit-test',
+        install_path = None, 
+        source = context.path.ant_glob('test/src/*.c'),
+        includes = 'test/include libeskit/include',
+        lib = lib_list,
+        libpath  = ['/usr/lib'],
+        use = 'eskit'
+    )
 
-	# 3. The pkg-config file
-	libListStr = '-leskit'
-	libListStr += ''.join([' -l' + lib for lib in libList])
+    # 3. The pkg-config file
+    lib_list_str = '-leskit'
+    lib_list_str += ''.join([' -l' + lib for lib in lib_list])
 
-	cflagsStr = ''
-	if context.env.use_LAPACK:
-		cflagsStr += '-DUSE_LAPACK'
+    cflags_str = ''
+    if context.env.use_LAPACK:
+        cflags_str += '-DUSE_LAPACK'
 
-	obj = context.new_task_gen('subst')
-	obj.source = 'eskit.pc.in'
-	obj.target = 'eskit.pc'
-	obj.dict   = {
-		'LIBS': libListStr, 
-		'CFLAGS': cflagsStr, 
-		'PREFIX': context.env.PREFIX, 
-		'NAME': 'eskit', 
-		'VERSION': context.env['VERSION'] }
-
-	context.install_files('${PREFIX}/lib/pkgconfig', 'eskit.pc')
+    context(
+        source='eskit.pc.in',
+        LIBS=lib_list_str,
+        CFLAGS=cflags_str, 
+        PREFIX=context.env.PREFIX, 
+        NAME='eskit',
+        VERSION=context.env['VERSION'],
+    )
