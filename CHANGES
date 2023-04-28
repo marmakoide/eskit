@@ -1,3 +1,14 @@
+Version 1.2.3
+-------------
+
++ Updates
+	+ Updated waf build setup to lastest version
+	+ Updated dates and contact informations
++ Bugs fix
+	+ Fixed incorrect random number generator initialisation in test program
+
+
+
 Version 1.2.2
 -------------
 
