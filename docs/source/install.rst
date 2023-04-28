@@ -17,11 +17,11 @@ Unpack the source tarball and change to the source directory:
 
 ::
 
-	bunzip2 -c eskit-1.0.0.tar.bz2 | tar xf -
-	cd eskit-1.0.0
+	bunzip2 -c eskit-1.2.3.tar.bz2 | tar xf -
+	cd eskit-1.2.3
 
 The compilation and installation rely on `Waf`_, and is likely to be extremely 
-simple. You just need to have Python installed, version 2.3 at least, nothing 
+simple. You just need to have Python 3 installed, nothing 
 more.
 
 ::
