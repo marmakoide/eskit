@@ -217,12 +217,12 @@ getRandomSeed(uint32_t* outSeed) {
 
 	file = fopen("/dev/urandom", "rb");
 	if (!file) {
-		perror("Failed to get random seed");
+		perror("Failed to open /dev/urandom");
 		return 0;
 	}
 
-	if (fread(outSeed, sizeof(uint32_t), 1, file) != sizeof(uint32_t)) {
-		perror("Failed to get random seed");
+	if (fread(outSeed, sizeof(uint32_t), 1, file) != 1) {
+		perror("Failed to read random seed");
 		return 0;
 	}
 
