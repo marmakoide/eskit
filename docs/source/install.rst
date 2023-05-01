@@ -11,14 +11,14 @@ Getting started
 Compiling and installing ESKit
 ==============================
 
-The ESKit source is available at http://www.marmakoide.org/code/eskit/releases
+The ESKit source is available at https://github.com/marmakoide/eskit
 
-Unpack the source tarball and change to the source directory:
+Clone the repository:
 
 ::
 
-	bunzip2 -c eskit-1.2.3.tar.bz2 | tar xf -
-	cd eskit-1.2.3
+	git clone https://github.com/marmakoide/eskit
+	cd eskit
 
 The compilation and installation rely on `Waf`_, and is likely to be extremely 
 simple. You just need to have Python 3 installed, nothing 
