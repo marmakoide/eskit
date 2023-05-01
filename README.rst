@@ -15,6 +15,10 @@ some self-adaptive evolution strategies in C. It features:
 + Benchmark program
 + Can optionaly uses *LAPACK*
 
+Documentation
+=============
+
+Documentation, covering installation, tutorial, and API, is available online `here <https://eskit.readthedocs.io>`__
 
 Authors
 =======
